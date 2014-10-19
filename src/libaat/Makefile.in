@@ -3,7 +3,7 @@ SHELL = @SHELL@
 top_srcdir = @top_srcdir@
 
 CC = @CC@
-CFLAGS = @CFLAGS@ @DSIZEOF_LONG_INT@ @DWORDS_BIGENDIAN@ @MEM_DEF@ @MEM_STDINC@ @DDEBUG@
+CFLAGS = @CFLAGS@ @DDEBUG@
 AR = @AR@
 ARFLAGS = @ARFLAGS@
 RANLIB = @RANLIB@
@@ -12,7 +12,6 @@ LIBNAME = aat
 LIBA = lib$(LIBNAME).a
 
 SOURCE = myopt.c \
-         myassert.c \
          allocSprintf.c \
          mywarn.c \
          mycomplex.c \

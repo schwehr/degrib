@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
@@ -143,7 +144,7 @@ void Clock_ScanDate(double *clock, sInt4 year, int mon, int day)
    int i;
    sInt4 delt, temp, totDay;
 
-   myAssert((mon >= 1) && (mon <= 12));
+   assert((mon >= 1) && (mon <= 12));
 
    /* Makes sure clock is zero'ed out. */
    *clock = 0;
@@ -359,28 +360,4 @@ int Clock_ScanMonth(char *ptr)
          return -1;
    }
    return -1;
-}
-
-/*****************************************************************************
- * Clock_PrintMonth3() -- Arthur Taylor / MDL
- *
- * PURPOSE
- *
- * ARGUMENTS
- *
- * RETURNS: void
- *
- * HISTORY
- *
- * NOTES
- ****************************************************************************/
-void Clock_PrintMonth3(int mon, char *buffer, int buffLen)
-{
-   static char *MonthName[] = {
-      "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT",
-      "NOV", "DEC"
-   };
-   myAssert((mon > 0) && (mon < 13));
-   myAssert(buffLen > 3);
-   strcpy(buffer, MonthName[mon - 1]);
 }

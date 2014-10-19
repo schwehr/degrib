@@ -157,7 +157,7 @@ int shpCreatePnt(const char *Filename, const LatLon *dp, size_t numDP)
 
    /* Check that .shx is now the correct file size. */
    fseek(xfp, 0L, SEEK_END);
-   if (ftell(xfp) != 100 + 8 * numDP) {
+   if (ftell(xfp) != (long)(100 + 8 * numDP)) {
       myWarn_Err3Arg("shx file '%s' is not %ld bytes long.\n", filename,
                      100 + 8 * numDP);
       free(filename);

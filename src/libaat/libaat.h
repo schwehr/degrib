@@ -51,18 +51,6 @@ int myUsage(const char *name, const char *argsDoc, char *doc[],
 int myGetOpt(int argc, char *const *argv, const char *optShort,
              const struct option *optLong, struct getOptRet *gl);
 
-/* From myassert.h */
-#ifdef DEBUG
-   void _myAssert(const char *file, int lineNum);
-   #define myAssert(f) \
-      if (f)          \
-         {}           \
-      else            \
-         _myAssert (__FILE__, __LINE__)
-#else
-   #define myAssert(f)
-#endif
-
 /* From allocSprintf.c */
 int allocSprintf(char **Ptr, size_t *Size, const char *fmt, va_list ap);
 int mallocSprintf(char **Ptr, const char *fmt, ...);

@@ -17,6 +17,7 @@
  * 2) Originally this code was in myerror.c
  * 3) Would like a lazier allocSprintf routine (didn't alloc as often).
  ****************************************************************************/
+#include <assert.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
@@ -99,7 +100,7 @@ int allocSprintf(char **Ptr, size_t *Size, const char *fmt, va_list ap)
    size_t ipos;         /* The current index to start storing data. */
    int c_type;          /* Used when handling %c option. */
 
-   myAssert(sizeof(char) == 1);
+   assert(sizeof(char) == 1);
    if ((fmt == NULL) || (strlen(fmt) == 0)) {
       return 0;
    }
@@ -112,7 +113,7 @@ int allocSprintf(char **Ptr, size_t *Size, const char *fmt, va_list ap)
       }
       ipos = 0;
    } else {
-      myAssert(lenBuff >= strlen(buffer) + 1);
+      assert(lenBuff >= strlen(buffer) + 1);
       lenBuff = strlen(buffer) + 1;
       ipos = lenBuff - 1;
    }

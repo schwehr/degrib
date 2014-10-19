@@ -9,6 +9,7 @@
  *
  * NOTES
  ****************************************************************************/
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -57,9 +58,9 @@ int reallocFGets(char **S, size_t *Size, FILE *fp)
    int c;               /* Current char read from stream. */
    int i;               /* Where to store c. */
 
-   myAssert(sizeof(char) == 1);
+   assert(sizeof(char) == 1);
    for (i = 0; ((c = getc(fp)) != EOF) && (c != '\n'); ++i) {
-      if (i >= *Size) {
+     if ((size_t)i >= *Size) {
          if ((str = (char *)realloc((void *)*S, *Size + STEPSIZE)) == NULL) {
             myWarn_Err1Arg("Ran out of memory\n");
             return -1;
@@ -71,7 +72,7 @@ int reallocFGets(char **S, size_t *Size, FILE *fp)
    }
    if (c == '\n') {
       /* Make room for \n\0. */
-      if (*Size < i + 2) {
+     if (*Size < (size_t)(i + 2)) {
          if ((str = (char *)realloc((void *)*S, i + 2)) == NULL) {
             myWarn_Err1Arg("Ran out of memory\n");
             return -1;
@@ -83,7 +84,7 @@ int reallocFGets(char **S, size_t *Size, FILE *fp)
       ++i;
    } else {
       /* Make room for \0. */
-      if (*Size < i + 1) {
+     if (*Size < (size_t)(i + 1)) {
          if ((str = (char *)realloc((void *)*S, i + 1)) == NULL) {
             myWarn_Err1Arg("Ran out of memory\n");
             return -1;
@@ -289,7 +290,7 @@ int myAtoI(const char *s, sInt4 *value)
    char *extra = NULL;  /* The data after the end of the integer. */
 
    *value = 0;
-   myAssert(s != NULL);
+   assert(s != NULL);
    if (s == NULL) {
       return 0;
    }
@@ -299,7 +300,7 @@ int myAtoI(const char *s, sInt4 *value)
          if (errno == ERANGE) {
             return 0;
          }
-         myAssert(extra != NULL);
+         assert(extra != NULL);
          if (*extra == '\0') {
             return 1;
          }
@@ -399,7 +400,7 @@ int myAtoF(const char *s, double *value)
    char *extra;         /* The data after the end of the double. */
 
    *value = 0;
-   myAssert(s != NULL);
+   assert(s != NULL);
    if (s == NULL) {
       return 0;
    }
@@ -409,7 +410,7 @@ int myAtoF(const char *s, double *value)
          if (errno == ERANGE) {
             return 0;
          }
-         myAssert(extra != NULL);
+         assert(extra != NULL);
          if (*extra == '\0') {
             return 1;
          }
@@ -624,7 +625,7 @@ void strToLower(char *s)
 {
    char *p = s;         /* Used to traverse s. */
 
-   myAssert(s != NULL);
+   assert(s != NULL);
    if (s == NULL) {
       return;
    }
@@ -653,7 +654,7 @@ void strToUpper(char *s)
 {
    char *p = s;         /* Used to traverse s. */
 
-   myAssert(s != NULL);
+   assert(s != NULL);
    if (s == NULL) {
       return;
    }
@@ -691,13 +692,13 @@ void strToUpper(char *s)
  ****************************************************************************/
 int ListSearch(char **List, size_t N, const char *s)
 {
-   int cnt = 0;         /* Current Count in List. */
+   size_t cnt = 0;         /* Current Count in List. */
 
-   myAssert(s != NULL);
+   assert(s != NULL);
    if (s == NULL) {
       return -1;
    }
-   myAssert(List != NULL);
+   assert(List != NULL);
    for (; cnt < N; ++List, ++cnt) {
       if (strcmp(s, *List) == 0) {
          return cnt;

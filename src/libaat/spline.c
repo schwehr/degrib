@@ -13,6 +13,7 @@
  *
  * NOTES
  ****************************************************************************/
+#include <assert.h>
 #include <stdlib.h>
 #include "libaat.h"
 
@@ -283,7 +284,7 @@ void splint(float xa[], float ya[], float y2a[], size_t n, float x, float *y)
          klo = k;
    }
    h = xa[khi] - xa[klo];
-   myAssert(h != 0.0);
+   assert(h != 0.0);
    a = (xa[khi] - x) / h;
    b = (x - xa[klo]) / h;
    *y = (a * ya[klo] + b * ya[khi] +

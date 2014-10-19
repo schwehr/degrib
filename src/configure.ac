@@ -6,7 +6,7 @@ AC_PREREQ(2.59)
 AC_INIT([degrib],[2.03],[arthur.taylor@noaa.gov])
 AC_SUBST(PACKAGE_DATE,'20140819')
 AC_CONFIG_SRCDIR([Makefile.in])
-AC_CONFIG_HEADERS([gd/config.h:gd/scripts/config.hin])
+# AC_CONFIG_HEADERS([gd/config.h:gd/scripts/config.hin])
 AC_CANONICAL_HOST()
 
 # Checks for programs.
@@ -22,7 +22,7 @@ SET_BIGENDIAN()
 
 # Provides --enable-aixsize option (32 or 64 bit compiling (default 64) for AIX
 # Make sure you call AC_SUBST(ARFLAGS)
-OPT_AIXSIZE()
+# OPT_AIXSIZE()
 
 case "$host" in
   *-*-aix*) STRIP_FLAGS="-X32_64";;
@@ -33,28 +33,28 @@ esac
 # Set @DSIZEOF_LONG_INT@ variable.
 # May want to use CPPFLAGS instead.
 # This should be after "OPT_AIXSIZE"
-SET_SIZEOF_LONGINT()
+# SET_SIZEOF_LONGINT()
 
 # Set @ANSIFLAG@ variable.
 # Set @C99FLAG@ variable.
 # Also sets -Wall in CFLAGS.
-SET_ANSIFLAG()
+# SET_ANSIFLAG()
 
 # Set @DWINDOWS@ variable (drawshp doesn't need X or Tcl/Tk but does need this)
-SET_DWINDOWS()
+# SET_DWINDOWS()
 
 # Set @DYNAMIC_LIB@ variable.
-SET_DYNAMIC_LIB()
+# SET_DYNAMIC_LIB()
 
 # Adds the flags to CFLAGS to compile using signed char.
-AAT_MYSIGN()
+# AAT_MYSIGN()
 
 # Provides --with-cygwin option (Default is --without-cygwin)
-OPT_CYGWIN()
+# OPT_CYGWIN()
 
 # Provides --without-strip Option (Default is --with-strip)
 # Make sure you call AC_SUBST(STRIP)
-OPT_NOSTRIP()
+# OPT_NOSTRIP()
 
 # Provides --with-memwatch option (Default is --without-memwatch)
 # Assumes $(top_srcdir) is set in the Makefile.in
@@ -64,10 +64,10 @@ OPT_NOSTRIP()
 # Set @MEM_LIBDEP@ variable
 # Set @MEM_STDINC@ variable
 # Set @MEM_STDLIB@ variable
-OPT_MEMWATCH()
+# OPT_MEMWATCH()
 
 # Provides --with-halo option (Default is --without-halo)
-OPT_HALO()
+# OPT_HALO()
 
 # ................................
 # ....Graphics Display configs....
@@ -107,19 +107,19 @@ AT_PROG_TCL()
 
 # Provides the --with-badtclssh option (Default is --without-badtclssh)
 # This option allows for the bad exit With Tcl/Tk and SSH on NCEP's AIX
-OPT_DBADTCLSSH()
+# OPT_DBADTCLSSH()
 
 # Provides the --with-tkputs option (Default is --without-tkputs)
 # This option allows for puts in MS-Windows from a Tk app (ie creates a console)
-OPT_TKPUTS()
+# OPT_TKPUTS()
 
 # Set @TCL_VERSION@ variable (current version of Tcl/Tk)
 # Not needed since TK_LIBS and TCL_LIBS are already set.
 AC_ARG_VAR([TCL_VERSION],[Version of TCL/TK])
-SET_TCL_VERSION()
+# SET_TCL_VERSION()
 
-SET_MINIZIP32()
-SET_DLLEXT()
+# SET_MINIZIP32()
+# SET_DLLEXT()
 
 # ................................
 # ....Local modifications     ....
@@ -186,12 +186,12 @@ AC_SUBST([ARFLAGS])
 AC_SUBST([LD_FLAGS])
 
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([zlib/Makefile:zlib/scripts/Makefile.in])
-AC_CONFIG_FILES([zlib/contrib/minizip/Makefile])
-AC_CONFIG_FILES([libpng/Makefile:libpng/scripts/Makefile.in])
+# AC_CONFIG_FILES([zlib/Makefile:zlib/scripts/Makefile.in])
+# AC_CONFIG_FILES([zlib/contrib/minizip/Makefile])
+# AC_CONFIG_FILES([libpng/Makefile:libpng/scripts/Makefile.in])
 AC_CONFIG_FILES([libaat/Makefile])
 AC_CONFIG_FILES([mdl_g2c/Makefile])
-AC_CONFIG_FILES([gd/Makefile:gd/scripts/Makefile.in])
+# AC_CONFIG_FILES([gd/Makefile:gd/scripts/Makefile.in])
 AC_CONFIG_FILES([degrib/Makefile])
 AC_CONFIG_FILES([xyz2shp/Makefile])
 AC_OUTPUT()

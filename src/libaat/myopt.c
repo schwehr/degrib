@@ -96,7 +96,7 @@ int myUsage(const char *name, const char *argsDoc, char *doc[],
       if (len > 21) {
          printf("\n%30s", " ");
       } else {
-         printf("%*s", (21 - len), " ");
+          printf("%*s", (int)(21 - len), " ");
       }
       /* Print the optDoc area. */
       while ((ptr = strchr(optDoc, '\n')) != NULL) {
@@ -302,7 +302,7 @@ int myGetOpt(int argc, char *const *argv, const char *optShort,
     * end of the options. */
    if (f_type == 2) {
       /* see if we have the end of options. */
-      if ((argv[gl->optind][2] == '\0')) {
+      if (argv[gl->optind][2] == '\0') {
          ans = -1;
          if (firstNonopt != -1) {
             /* insert gl->optind to just before firstNonopt */

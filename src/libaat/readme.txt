@@ -63,25 +63,6 @@
  *   1..255 = val of the short option, or if optLong.flag == NULL then value
  *            of the optLong.val.
 
-================= myassert.c ===================
-
- * myAssert() -- Arthur Taylor / MDL
- *
- * PURPOSE
- *    This is an Assert routine from "Writing Solid Code" by Steve Maguire.
- *
- *    Advantages of this over "assert" is that assert stores the expression
- * string for printing.  Where does assert store it?  Probably in global data,
- * but that means assert is gobbling up space that the program may need for no
- * real advantage.  If you trigger assert, you're going to look in the file
- * and see the code.
- *
- * ARGUMENTS
- *    file = Filename that assert was in. (Input)
- * lineNum = Line number in file of the assert. (Input)
- *
- * RETURNS: void
-
 ================= allocSprintf.c ===================
 
  * allocSprintf() -- Arthur Taylor / MDL

@@ -19,6 +19,7 @@
 #define PKGDATE "20070807"
 #endif
 
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -77,7 +78,7 @@ int checkFileSize (char *filename, unsigned long int len)
       return -1;
    }
    fseek (fp, 0L, SEEK_END);
-   if (ftell (fp) != len) {
+   if (ftell (fp) != (long)len) {
       printf ("ERROR: file %s is %ld not %ld bytes long.\n", filename,
               ftell (fp), len);
       fclose (fp);
@@ -306,7 +307,7 @@ int ReadXYZ (char *filename, statInfo_type ** Stat, int *numStat,
    char *decPtr;
    statInfo_type st;
 
-   myAssert (filename != NULL);
+   assert (filename != NULL);
    if ((fp = fopen (filename, "rt")) == NULL) {
       printf ("Couldn't open %s\n", filename);
       return -1;
@@ -325,7 +326,7 @@ int ReadXYZ (char *filename, statInfo_type ** Stat, int *numStat,
       if (lineNum == 0) {
          *numCol = lineArgc;
          *Col = (dbfCol_type *) malloc (*numCol * sizeof (dbfCol_type));
-         for (i = 0; i < lineArgc; i++) {
+         for (i = 0; i < (int)lineArgc; i++) {
             (*Col)[i].address = 0;
             strToUpper (lineArgv[i]);
             if (i == 0) {
@@ -372,12 +373,12 @@ int ReadXYZ (char *filename, statInfo_type ** Stat, int *numStat,
             (*Col)[i].fldDec = 0;
          }
       } else {
-         myAssert (*numCol >= 3);
+         assert (*numCol >= 3);
 
          /* Initialize a statInfo type. */
          st.ptr = (char **) malloc ((*numCol - 2) * sizeof (char *));
          st.numPtr = *numCol - 2;
-         for (i = 0; i < lineArgc; i++) {
+         for (i = 0; i < (int)lineArgc; i++) {
             strTrim (lineArgv[i]);
             fldLen = strlen (lineArgv[i]);
             if (fldLen > (*Col)[i].fldLen) {
@@ -430,7 +431,7 @@ int ReadXYZ (char *filename, statInfo_type ** Stat, int *numStat,
             }
          }
       }
-      for (i = 0; i < lineArgc; i++) {
+      for (i = 0; i < (int)lineArgc; i++) {
          free (lineArgv[i]);
       }
       free (lineArgv);
@@ -491,7 +492,7 @@ int DbfWrite (char *filename, dbfCol_type * col, int numCol,
       }
 /*      printf ("%s\n", buffer);*/
       fwrite (buffer, sizeof (char), recLen, fp);
-      myAssert (cur == recLen);
+      assert (cur == recLen);
    }
    free (buffer);
    fclose (fp);

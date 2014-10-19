@@ -5,13 +5,13 @@ top_srcdir = @top_srcdir@
 CC = @CC@
 STRIP = @STRIP@
 STRIP_FLAGS = @STRIP_FLAGS@
-STD_FLAGS = @CFLAGS@ @ANSIFLAG@
+STD_FLAGS = @CFLAGS@
 EXEEXT = @EXEEXT@
 
-STD_DEF = @DSIZEOF_LONG_INT@ @DWORDS_BIGENDIAN@ @MEM_DEF@ @DDEBUG@
-STD_INC = @MEM_STDINC@ -I${top_srcdir}/libaat
+STD_DEF = @DDEBUG@
+STD_INC = -I${top_srcdir}/libaat
 
-STD_LIB = @MEM_STDLIB@ -L${top_srcdir}/libaat/ -laat -L/usr/lib/ -lm
+STD_LIB = -L${top_srcdir}/libaat/ -laat -L/usr/lib/ -lm
 
 PRJ_NAME = xyz2shp
 
@@ -29,7 +29,7 @@ HEADERS = xyzuser.h
 
 MAIN = xyz2shp.c
 
-LIB_DEPENDS = @MEM_LIBDEP@ ${top_srcdir}/libaat/libaat.a
+LIB_DEPENDS = ${top_srcdir}/libaat/libaat.a
 
 ############################
 # TARGETS
@@ -38,7 +38,7 @@ all: $(PRJ_NAME)
 
 $(PRJ_NAME): $(OBJECTS) $(MAIN) $(LIB_DEPENDS) $(HEADERS)
 	$(CC) $(MAIN) $(MAINFLAGS) $(LD_FLAGS) $(OBJECTS) $(STD_LIB) -o $(PRJ_NAME)
-	$(STRIP) $(STRIP_FLAGS) $(PRJ_NAME)$(EXEEXT)
+#	$(STRIP) $(STRIP_FLAGS) $(PRJ_NAME)$(EXEEXT)
 
 install: $(PRJ_NAME)
 	cp $(PRJ_NAME)$(EXEEXT) ../../bin

@@ -70,8 +70,8 @@ void misspack(g2float *fld,g2int ndpts,g2int idrsnum,g2int *idrstmpl,
       g2int  *gref, *gwidth, *glen;
       g2int  glength, grpwidth;
       g2int  i, n, iofst, imin, ival1, ival2, isd, minsd, nbitsd;
-      g2int  nbitsgref, left, iwmax, ngwidthref, nbitsgwidth, ilmax;
-      g2int  nglenref, nglenlast, nbitsglen, ij;
+      g2int  nbitsgref, left, iwmax, ngwidthref=0, nbitsgwidth=0, ilmax;
+      g2int  nglenref=0, nglenlast=0, nbitsglen=0, ij;
       g2int  j, missopt, nonmiss, itemp, maxorig, nbitorig, miss1, miss2;
       g2int  ngroups, ng, num0, num1, num2;
       g2int  imax, lg, mtemp, ier, igmax;

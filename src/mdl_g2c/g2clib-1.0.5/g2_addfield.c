@@ -189,8 +189,8 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
       //    total length, then there is a problem.
         if ( len > lencurr ) {
           printf("g2_addfield: Section byte counts don''t add to total.\n");
-          printf("g2_addfield: Sum of section byte counts = %ld\n",len);
-          printf("g2_addfield: Total byte count in Section 0 = %ld\n",lencurr);
+          printf("g2_addfield: Sum of section byte counts = %d\n",(int)len);
+          printf("g2_addfield: Total byte count in Section 0 = %d\n",(int)lencurr);
           ierr=-3;
           return(ierr);
         }
@@ -347,7 +347,7 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
               width=ndpts;
               height=1;
            }
-           else if ( width==allones || height==allones ) {
+           else if ( width==(g2int)allones || height==(g2int)allones ) {
               width=ndpts;
               height=1;
            }
@@ -373,7 +373,7 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
               width=ndpts;
               height=1;
            }
-           else if ( width==allones || height==allones ) {
+           else if ( width==(g2int)allones || height==(g2int)allones ) {
               width=ndpts;
               height=1;
            }
@@ -391,7 +391,7 @@ g2int g2_addfield(unsigned char *cgrib,g2int ipdsnum,g2int *ipdstmpl,
       }
 #endif  /* USE_PNG */
       else {
-        printf("g2_addfield: Data Representation Template 5.%ld not yet implemented.\n",idrsnum);
+        printf("g2_addfield: Data Representation Template 5.%d not yet implemented.\n",(int)idrsnum);
         ierr=-7;
         return(ierr);
       }

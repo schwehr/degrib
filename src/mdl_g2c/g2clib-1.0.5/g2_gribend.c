@@ -97,7 +97,7 @@ g2int g2_gribend(unsigned char *cgrib)
 //
       if ( isecnum != 7 ) {
         printf("g2_gribend: Section 8 can only be added after Section 7.\n");
-        printf("g2_gribend: Section %ld was the last found in given GRIB message.\n",isecnum);
+        printf("g2_gribend: Section %d was the last found in given GRIB message.\n",(int)isecnum);
         ierr=-4;
         return (ierr);
       }

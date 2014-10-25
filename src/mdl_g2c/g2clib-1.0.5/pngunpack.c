@@ -4,7 +4,14 @@
 
 int dec_png(unsigned char *,g2int *,g2int *,char *);
 
-g2int pngunpack(unsigned char *cpack,g2int len,g2int *idrstmpl,g2int ndpts,
+#if defined(__GNUC__) && __GNUC__ >= 4
+#  define UNUSED __attribute((__unused__))
+#else
+/* TODO: add cases for other compilers */
+#  define UNUSED
+#endif
+
+g2int pngunpack(unsigned char *cpack, UNUSED g2int len,g2int *idrstmpl,g2int ndpts,
                 g2float *fld)
 //$$$  SUBPROGRAM DOCUMENTATION BLOCK
 //                .      .    .                                       .
@@ -60,7 +67,7 @@ g2int pngunpack(unsigned char *cpack,g2int len,g2int *idrstmpl,g2int ndpts,
             fprintf(stderr,"Could not allocate space in jpcunpack.\n  Data field NOT upacked.\n");
             return(1);
          }
-         iret=(g2int)dec_png(cpack,&width,&height,ctemp);
+         iret=(g2int)dec_png(cpack,&width,&height,(char *)ctemp);
          gbits(ctemp,ifld,0,nbits,0,ndpts);
          for (j=0;j<ndpts;j++) {
            fld[j]=(((g2float)ifld[j]*bscale)+ref)*dscale;

@@ -124,8 +124,8 @@ g2int g2_addgrid(unsigned char *cgrib,g2int *igds,g2int *igdstmpl,g2int *ideflis
       //    total length, then there is a problem.
         if ( len > lencurr ) {
           printf("g2_addgrid: Section byte counts don''t add to total.\n");
-          printf("g2_addgrid: Sum of section byte counts = %ld\n",len);
-          printf("g2_addgrid: Total byte count in Section 0 = %ld\n",lencurr);
+          printf("g2_addgrid: Sum of section byte counts = %d\n", (int)len);
+          printf("g2_addgrid: Total byte count in Section 0 = %d\n", (int)lencurr);
           ierr=-3;
           return(ierr);
         }

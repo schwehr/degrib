@@ -349,7 +349,7 @@ g2int g2_getfld(unsigned char *cgrib,g2int ifldnum,g2int unpack,g2int expand,
         //  Check to see if section number is valid
         //
         if ( isecnum<1 || isecnum>7 ) {
-          printf("g2_getfld: Unrecognized Section Encountered=%ld\n",isecnum);
+          printf("g2_getfld: Unrecognized Section Encountered=%d\n", (int)isecnum);
           ierr=8;
           return(ierr);
         }
@@ -541,8 +541,8 @@ g2int g2_getfld(unsigned char *cgrib,g2int ifldnum,g2int unpack,g2int expand,
 //  If exited from above loop, the end of the GRIB message was reached
 //  before the requested field was found.
 //
-      printf("g2_getfld: GRIB message contained %ld different fields.\n",numfld);
-      printf("g2_getfld: The request was for field %ld.\n",ifldnum);
+      printf("g2_getfld: GRIB message contained %d different fields.\n", (int)numfld);
+      printf("g2_getfld: The request was for field %d.\n",(int)ifldnum);
       ierr=6;
 
       return(ierr);

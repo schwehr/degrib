@@ -16,7 +16,14 @@
 typedef g2int integer;
 typedef g2float real;
 
-/* Subroutine */ int reduce(integer *kfildo, integer *jmin, integer *jmax, 
+#if defined(__GNUC__) && __GNUC__ >= 4
+#  define UNUSED __attribute((__unused__))
+#else
+/* TODO: add cases for other compilers */
+#  define UNUSED
+#endif
+
+/* Subroutine */ int reduce(UNUSED integer *kfildo, integer *jmin, integer *jmax, 
 	integer *lbit, integer *nov, integer *lx, integer *ndg, integer *ibit,
 	 integer *jbit, integer *kbit, integer *novref, integer *ibxx2, 
 	integer *ier)

@@ -13,6 +13,7 @@
  * NOTES
  *****************************************************************************
  */
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
@@ -143,16 +144,16 @@ static int mdl_LocalUnpack(unsigned char *local, sInt4 locallen,
    }
    /* The calling routine should check octet 6, which is local[0], to be 1,
     * so we just assert it is 1. */
-   myAssert(local[0] == 1);
+   assert(local[0] == 1);
    numGroup = GRIB_UNSIGN_INT2(local[1], local[2]);
    local += 3;
    BytesUsed += 3;
-   myAssert(*nrdat > 1);
-   myAssert(*nidat > 1);
+   assert(*nrdat > 1);
+   assert(*nidat > 1);
    idat[0] = 0;
    rdat[0] = 0;
 
-   for (i = 0; i < numGroup; i++) {
+   for (i = 0; (unsigned int)i < numGroup; i++) {
       if (locallen < BytesUsed + 12) {
 #ifdef DEBUG
          printf("Locallen is too small.\n");
@@ -287,8 +288,8 @@ static int fillOutSectLen(unsigned char *c_ipack, int lenCpack,
       return 1;
    }
    /* assert that we start with data in either section 2 or 3. */
-   myAssert((c_ipack[4] == 2) || (c_ipack[4] == 3));
-   while (gNum <= subgNum) {
+   assert((c_ipack[4] == 2) || (c_ipack[4] == 3));
+   while ((int)gNum <= subgNum) {
       if (lenCpack < offset + 5) {
 #ifdef DEBUG
          printf("Cpack is not large enough.\n");
@@ -418,7 +419,7 @@ static int TransferInt(float *fld, sInt4 ngrdpts, sInt4 ibitmap,
             ScanIndex2XY(i, &x, &y, *scan, nx, ny);
             /* ScanIndex returns value as if scan was 0100(0000) */
             curIndex = (x - 1) + (y - 1) * nx;
-            myAssert(curIndex < nd2x3);
+            assert(curIndex < nd2x3);
             ib[curIndex] = bmap[i];
             /* Check if we are supposed to insert xmissp into the field */
             if ((iclean != 0) && (ib[curIndex] == 0)) {
@@ -432,7 +433,7 @@ static int TransferInt(float *fld, sInt4 ngrdpts, sInt4 ibitmap,
             ScanIndex2XY(i, &x, &y, *scan, nx, ny);
             /* ScanIndex returns value as if scan was 0100(0000) */
             curIndex = (x - 1) + (y - 1) * nx;
-            myAssert(curIndex < nd2x3);
+            assert(curIndex < nd2x3);
             iain[curIndex] = fld[i];
          }
       }
@@ -523,7 +524,7 @@ static int TransferFloat(float *fld, sInt4 ngrdpts, sInt4 ibitmap,
             ScanIndex2XY(i, &x, &y, *scan, nx, ny);
             /* ScanIndex returns value as if scan was 0100(0000) */
             curIndex = (x - 1) + (y - 1) * nx;
-            myAssert(curIndex < nd2x3);
+            assert(curIndex < nd2x3);
             ib[curIndex] = bmap[i];
             /* Check if we are supposed to insert xmissp into the field */
             if ((iclean != 0) && (ib[curIndex] == 0)) {
@@ -537,7 +538,7 @@ static int TransferFloat(float *fld, sInt4 ngrdpts, sInt4 ibitmap,
             ScanIndex2XY(i, &x, &y, *scan, nx, ny);
             /* ScanIndex returns value as if scan was 0100(0000) */
             curIndex = (x - 1) + (y - 1) * nx;
-            myAssert(curIndex < nd2x3);
+            assert(curIndex < nd2x3);
             ain[curIndex] = fld[i];
          }
       }
@@ -793,7 +794,7 @@ void unpk_g2ncep(sInt4 *kfildo, float *ain, sInt4 *iain, sInt4 *nd2x3,
    sInt4 dummyScan;     /* Dummy place holder for call to Transfer routines
                          * if ignoring scan. */
 
-   myAssert(*ndjer >= 8);
+   assert(*ndjer >= 8);
    /* Init the error handling array. */
    memset((void *)jer, 0, 2 * *ndjer * sizeof(sInt4));
    for (i = 0; i < 8; i++) {
@@ -805,7 +806,7 @@ void unpk_g2ncep(sInt4 *kfildo, float *ain, sInt4 *iain, sInt4 *nd2x3,
     * numfields for subsequent calls with inew != 1. */
    if (*inew == 1) {
       subgNum = 0;
-      ierr = g2_info(c_ipack, listsec0, listsec1, &numfields, &numlocal);
+      ierr = g2_info((g2int *)c_ipack, listsec0, listsec1, &numfields, &numlocal);
       if (ierr != 0) {
          switch (ierr) {
             case 1:    /* Beginning characters "GRIB" not found. */
@@ -898,18 +899,18 @@ void unpk_g2ncep(sInt4 *kfildo, float *ain, sInt4 *iain, sInt4 *nd2x3,
 
    /* Start going through the gfld structure and converting it to the needed
     * data output formats. */
-   myAssert(*ns0 >= 16);
+   assert(*ns0 >= 16);
    MEMCPY_BIG(&(is0[0]), c_ipack, sizeof(sInt4));
    is0[6] = gfld->discipline;
    is0[7] = gfld->version;
    MEMCPY_BIG(&(is0[8]), c_ipack + 8, sizeof(sInt4));
    /* The following assert fails only if the GRIB message is more that 4
     * giga-bytes large, which I think would break the fortran library. */
-   myAssert(is0[8] == 0);
+   assert(is0[8] == 0);
    MEMCPY_BIG(&(is0[8]), c_ipack + 12, sizeof(sInt4));
 
-   myAssert(*ns1 >= 21);
-   myAssert(gfld->idsectlen >= 13);
+   assert(*ns1 >= 21);
+   assert(gfld->idsectlen >= 13);
    MEMCPY_BIG(&(is1[0]), c_ipack + 16, sizeof(sInt4));
    is1[4] = c_ipack[20];
    is1[5] = gfld->idsect[0];
@@ -1099,7 +1100,7 @@ void unpk_g2ncep(sInt4 *kfildo, float *ain, sInt4 *iain, sInt4 *nd2x3,
    }
 
    /* Check type of original field, before transfering the memory. */
-   myAssert(*ns5 > 20);
+   assert(*ns5 > 20);
    /* Check if NCEP had problems expanding the data.  If so we currently
     * abort. May need to revisit this behavior. */
    if (!gfld->expanded) {
@@ -1201,8 +1202,8 @@ static void BigByteCpy(sInt4 *dst, sInt4 *ipack, sInt4 nd5,
    unsigned int curByte; /* The current byte we have read. */
    int i;               /* Loop counter over number of bytes to read. */
 
-   myAssert(numByte <= 4);
-   myAssert(startByte < 4);
+   assert(numByte <= 4);
+   assert(startByte < 4);
    *dst = 0;
    intIndex = startInt;
    byteIndex = startByte;

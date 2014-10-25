@@ -102,8 +102,8 @@ g2int g2_addlocal(unsigned char *cgrib,unsigned char *csec2,g2int lcsec2)
       //    total length, then there is a problem.
         if ( len > lencurr ) {
           printf("g2_addlocal: Section byte counts don't add to total.\n");
-          printf("g2_addlocal: Sum of section byte counts = %ld\n",len);
-          printf("g2_addlocal: Total byte count in Section 0 = %ld\n",lencurr);
+          printf("g2_addlocal: Sum of section byte counts = %d\n", (int)len);
+          printf("g2_addlocal: Total byte count in Section 0 = %d\n", (int)lencurr);
           ierr=-3;
           return(ierr);
         }
@@ -113,7 +113,7 @@ g2int g2_addlocal(unsigned char *cgrib,unsigned char *csec2,g2int lcsec2)
 //
       if ( (isecnum!=1) && (isecnum!=7) ) {
         printf("g2_addlocal: Section 2 can only be added after Section 1 or Section 7.\n");
-        printf("g2_addlocal: Section %ld was the last found in given GRIB message.\n",isecnum);
+        printf("g2_addlocal: Section %d was the last found in given GRIB message.\n",(int)isecnum);
         ierr=-4;
         return(ierr);
       }

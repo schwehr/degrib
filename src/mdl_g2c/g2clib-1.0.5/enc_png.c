@@ -37,8 +37,14 @@ void user_write_data(png_structp png_ptr,png_bytep data, png_uint_32 length)
      mem->stream_len += length;
 }
 
+#if defined(__GNUC__) && __GNUC__ >= 4
+#  define UNUSED __attribute((__unused__))
+#else
+/* TODO: add cases for other compilers */
+#  define UNUSED
+#endif
 
-void user_flush_data(png_structp png_ptr)
+void user_flush_data(UNUSED png_structp png_ptr)
 /*
         Dummy Custom flush function
 */
@@ -88,7 +94,7 @@ int enc_png(char *data,g2int width,g2int height,g2int nbits,char *pngbuf)
 
 /*    Set new custom write functions    */
 
-    png_set_write_fn(png_ptr,(voidp)&write_io_ptr,(png_rw_ptr)user_write_data,
+    png_set_write_fn(png_ptr,(void *)&write_io_ptr,(png_rw_ptr)user_write_data,
                     (png_flush_ptr)user_flush_data);
 /*    png_init_io(png_ptr, fptr);   */
 /*    png_set_compression_level(png_ptr, Z_BEST_COMPRESSION);  */
